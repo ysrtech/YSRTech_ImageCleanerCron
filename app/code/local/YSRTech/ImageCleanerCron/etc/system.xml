@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <admin>
+            <groups>
+                <ysrtech_imagecleaner translate="label comment" module="ysrtech_imagecleanercron">
+                    <tab>advanced</tab>
+                    <label>Orphaned Image Clean-up</label>
+                    <comment><![CDATA[Runs from Magento cron on the schedule below. Finds images nothing uses and moves them to var/imagecleaner_trash/[date]/ instead of deleting them; they are deleted for good after the number of days below. Each run, and every file moved, is logged to var/log/imagecleaner_cron.log.]]></comment>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <sort_order>91</sort_order>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </enabled>
+                        <mode translate="label comment">
+                            <label>Mode</label>
+                            <comment>Report only lists in the log what would be moved, and moves nothing.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ysrtech_imagecleanercron/system_config_source_mode</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </mode>
+                        <cron_expr translate="label comment">
+                            <label>Schedule</label>
+                            <comment>Cron expression in server time. Default "30 3 * * 0": Sundays at 3:30 am.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </cron_expr>
+                        <products translate="label comment">
+                            <label>Product images</label>
+                            <comment>Images in media/catalog/product that no product uses.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </products>
+                        <categories translate="label comment">
+                            <label>Category images</label>
+                            <comment>Images in media/catalog/category that no category uses.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </categories>
+                        <product_cache translate="label comment">
+                            <label>Product image cache</label>
+                            <comment>Resized copies whose original image no longer exists.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </product_cache>
+                        <wysiwyg translate="label comment">
+                            <label>WYSIWYG (editor) images</label>
+                            <comment>Images in media/wysiwyg that no CMS page, block, email template, description or stylesheet mentions. Off by default: newsletters sent from elsewhere may still link to them.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </wysiwyg>
+                        <blacklist translate="label comment">
+                            <label>Never touch</label>
+                            <comment>One path per line, relative to the media folder, wildcards allowed. A folder covers everything inside it. E.g. "catalog/product/lookbook" or "wysiwyg/landing*".</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </blacklist>
+                        <min_age_hours translate="label comment">
+                            <label>Leave files changed in the last (hours)</label>
+                            <comment>So an image uploaded while the job runs is never caught before its product is saved.</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits</validate>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </min_age_hours>
+                        <max_ratio translate="label comment">
+                            <label>Stop if more than this % look unused</label>
+                            <comment>A section is skipped when this share of its files would be moved, or when no images in use are found at all. Either points at a database problem rather than real orphans.</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits</validate>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </max_ratio>
+                        <trash_days translate="label comment">
+                            <label>Keep moved files for (days)</label>
+                            <comment>Then they are deleted for good. Restore one by moving it back from var/imagecleaner_trash/[date]/ to the same path under the site root.</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits</validate>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </trash_days>
+                    </fields>
+                </ysrtech_imagecleaner>
+            </groups>
+        </admin>
+    </sections>
+</config>

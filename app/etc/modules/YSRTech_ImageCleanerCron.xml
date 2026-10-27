@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <YSRTech_ImageCleanerCron>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Catalog/>
+                <Mage_Cms/>
+                <Mage_Cron/>
+            </depends>
+        </YSRTech_ImageCleanerCron>
+    </modules>
+</config>
